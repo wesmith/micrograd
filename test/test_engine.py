@@ -20,6 +20,8 @@ def test_sanity_check():
     y.backward()
     xpt, ypt = x, y
 
+    print(f'micrograd values: {ymg.data}, {xmg.grad}') # WS
+    print(f'pytorch   values: {ypt.data.item()}, {xpt.grad.item()}') # WS
     # forward pass went well
     assert ymg.data == ypt.data.item()
     # backward pass went well
@@ -65,3 +67,10 @@ def test_more_ops():
     # backward pass went well
     assert abs(amg.grad - apt.grad.item()) < tol
     assert abs(bmg.grad - bpt.grad.item()) < tol
+    
+    print(f'micrograd: {gmg.data}, {amg.grad}, {bmg.grad}') # WS
+    print(f'pytorch:   {gpt.data.item()}, {apt.grad.item()}, {bpt.grad.item()}') # WS
+
+if __name__ == '__main__':
+    test_sanity_check()
+    test_more_ops()
